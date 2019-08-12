@@ -15,7 +15,9 @@ router.get('/', (request, response, next) => {
 router.get('/:id', (request, response, next) => {
     try {
         const noteId = request.params.id;
-        if (!noteId) throw new Error('Missing ID');
+        if (!noteId) {
+            throw new Error('Missing ID');
+        }
 
         const note = notesService.getNoteByID(noteId);
         if (!note) {
@@ -31,7 +33,9 @@ router.get('/:id', (request, response, next) => {
 router.post('/', (request, response, next) => {
     try {
         const noteText = request.body.text;
-        if (!noteText) throw { code: 409, message: 'text is required'};
+        if (!noteText) {
+            throw { code: 409, message: 'text is required'};
+        }
 
         const newNote = notesService.addNote(noteText);
         response.status(201);
@@ -44,10 +48,14 @@ router.post('/', (request, response, next) => {
 router.put('/:id', (request, response, next) => {
     try {
         const noteId = request.params.id;
-        if (!noteId) throw new Error('Missing ID');
+        if (!noteId) {
+            throw new Error('Missing ID');
+        }
 
         const noteText = request.body.text;
-        if (!noteText) throw new Error('Missing Text');
+        if (!noteText) {
+            throw new Error('Missing Text');
+        }
 
         const newNote = notesService.editNote(noteId, noteText);
         if (!newNote) {
@@ -63,7 +71,9 @@ router.put('/:id', (request, response, next) => {
 router.delete('/:id', (request, response, next) => {
     try {
         const noteId = request.params.id;
-        if (!noteId) throw new Error('Missing ID');
+        if (!noteId) {
+            throw new Error('Missing ID');
+        }
         
         const removedNote = notesService.deleteNote(noteId);
         if (!removedNote) {
